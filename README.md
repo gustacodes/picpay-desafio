@@ -16,7 +16,8 @@ Esta é uma API simples de transferência de pagamentos, que permite que os usu�
     "nome": "João Silva",
     "cpf": "12345678900",
     "email": "joao@example.com",
-    "senha": "senha123"
+    "senha": "senha123",
+    "saldo": 100.0
   }
   ```
 
