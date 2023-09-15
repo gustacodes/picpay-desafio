@@ -32,15 +32,11 @@ public class TransacaoService {
                 repository.save(payer);
                 repository.save(payee);
 
-            } else {
-                throw new SaldoInsuficiente("Saldo insuficiente.");
             }
 
             return "Transferência realizada";
 
         } catch (FalhaTransferencia e) {
-            return e.getMessage();
-        } catch (SaldoInsuficiente e) {
             return e.getMessage();
         }
     }

@@ -1,6 +1,8 @@
 package com.desafio.picpay.controller;
 
 import com.desafio.picpay.entitie.Usuario;
+import com.desafio.picpay.exception.Usuarios.CpfCadastrado;
+import com.desafio.picpay.exception.Usuarios.EmailCadastrado;
 import com.desafio.picpay.service.TransacaoService;
 import com.desafio.picpay.service.UsuarioService;
 import org.springframework.http.HttpStatus;
@@ -18,8 +20,24 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    @PostMapping
+    @PostMapping("/usuarios")
     public ResponseEntity<String> save(@RequestBody Usuario usuario) {
+
+        if (usuarioService.existsByCpf(usuario.getCpf())) {
+            try {
+                throw new CpfCadastrado("CPF já cadastrado no sistema");
+            } catch (CpfCadastrado e) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+            }
+
+        } else if (usuarioService.existsByEmail(usuario.getEmail())) {
+            try {
+                throw new EmailCadastrado("E-mail já cadastrado no sistema.");
+            } catch (EmailCadastrado e) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+            }
+
+        }
 
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.save(usuario));
     }
@@ -31,9 +49,13 @@ public class UsuarioController {
         Usuario usuarioPayer = usuarioService.findById(payer);
         Usuario usuarioPayee = usuarioService.findById(payee);
 
-        var transaction = transactionService.transaction(usuarioPayer, usuarioPayee, valor);
+        if (valor > usuarioPayer.getSaldo()) {
+            return ResponseEntity.badRequest().body("Saldo insuficiente");
+        }
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(transaction);
+        var transacao = transactionService.transaction(usuarioPayer, usuarioPayee, valor);
+
+        return ResponseEntity.status(HttpStatus.OK).body(transacao);
     }
 
 }

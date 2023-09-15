@@ -17,24 +17,15 @@ public class UsuarioService {
         this.repository = repository;
     }
 
+    public boolean existsByCpf(String cpf) {
+        return repository.existsByCpf(cpf);
+    }
+
+    public boolean existsByEmail(String email) {
+        return repository.existsByEmail(email);
+    }
+
     public String save(Usuario usuario) {
-
-        if (repository.existsByCpf(usuario.getCpf())) {
-            try {
-                throw new CpfCadastrado("CPF já cadastrado no sistema");
-            } catch (CpfCadastrado e) {
-                return e.getMessage();
-            }
-
-        } else if (repository.existsByEmail(usuario.getEmail())) {
-            try {
-                throw new EmailCadastrado("E-mail já cadastrado no sistema.");
-            } catch (EmailCadastrado e) {
-                return e.getMessage();
-            }
-
-        }
-
         return "Usuário cadastrado.";
     }
 
