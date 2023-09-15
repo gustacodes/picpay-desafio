@@ -49,7 +49,7 @@ Lembre-se de implementar a lógica de autenticação, controle de erros e valida
 
 ## Exemplos de Respostas
 
-- Resposta de Sucesso (201 Created):
+- Resposta de Sucesso (200 OK):
   ```json
   {
     "message": "Transação realizada com sucesso."
