@@ -20,6 +20,7 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<String> save(@RequestBody Usuario usuario) {
+
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.save(usuario));
     }
 
