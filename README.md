@@ -1,6 +1,6 @@
-# API de Transferência de Pagamentos
+# Desafio Back-end PicPay
 
-Esta é uma API simples de transferência de pagamentos, que permite que os usuários realizem transações de dinheiro entre si. Os usuários podem se cadastrar, efetuar transações e verificar seus saldos.
+Esta é uma API simples de transferência de pagamentos, que permite que os usuários realizem transações de dinheiro entre si. Os usuários podem se cadastrar e efetuar transações.
 
 ## Rotas da API
 

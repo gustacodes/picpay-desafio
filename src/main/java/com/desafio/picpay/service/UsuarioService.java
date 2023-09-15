@@ -26,6 +26,7 @@ public class UsuarioService {
     }
 
     public String save(Usuario usuario) {
+        repository.save(usuario);
         return "Usuário cadastrado.";
     }
 
